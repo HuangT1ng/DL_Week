@@ -2,8 +2,8 @@ This is the official documentation for the project
 
 To download the dependencies at the current directory 
 
-Open a terminal and run: pip install -r requirements.txt
+Open a terminal at this project dir and run: pip install -r requirements.txt
 
-
+To start server run: fastapi dev server.py
 
 
