@@ -1,5 +1,9 @@
 This is the official documentation for the project
 
+To download the dependencies at the current directory 
+
+Open a terminal and run: pip install -r requirements.txt
+
 
 
 
