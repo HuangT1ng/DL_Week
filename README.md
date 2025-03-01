@@ -1,6 +1,6 @@
 # Misinformation Detection Demo
 
-A web application that detects and highlights potential misinformation in news articles.
+A web plugin that detects and highlights potential misinformation and ai generated images in websites
 
 ## Quick Start
 
