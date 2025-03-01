@@ -67,7 +67,7 @@ def break_into_sentences(article):
 
 def api_init():
     client = Groq(
-        api_key='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',
+        api_key='',
     )
     return client
 
