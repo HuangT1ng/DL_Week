@@ -1,43 +1,6 @@
 "use client";
-import { useEffect } from "react";
 
 export default function Clean() {
-  // Backend scraping functionality
-  useEffect(() => {
-    const scrapeContent = async () => {
-      try {
-        // Get all text content from the article
-        const articleContent = document.querySelector('article')?.textContent || '';
-        
-        // Get all images with their src and alt attributes
-        const images = Array.from(document.querySelectorAll('img')).map(img => ({
-          src: img.src,
-          alt: img.alt || ''
-        }));
-
-        // Send to backend
-        const response = await fetch('http://localhost:8000/api/scrape', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            text: articleContent,
-            images: images
-          })
-        });
-
-        const data = await response.json();
-        console.log('Backend response:', data);
-      } catch (error) {
-        console.error('Error scraping content:', error);
-      }
-    };
-
-    // Run scraping after a short delay to ensure content is loaded
-    setTimeout(scrapeContent, 1000);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
       {/* Top Navigation */}

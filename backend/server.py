@@ -2,8 +2,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
-from backend.nlp import process_text
-from backend.image_detection import analyze_image
+from nlp import process_text
 import json
 
 app = FastAPI()
@@ -11,7 +10,7 @@ app = FastAPI()
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Your frontend URL
+    allow_origins=["*"],  # More permissive for testing
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,43 +53,9 @@ class ProcessedContent(BaseModel):
 def read_root():
     return {"Hello": "World"}
 
-# Add your misinformation detection endpoints here
-@app.post("/api/analyze-content")
-async def analyze_content(content: ArticleContent):
-    try:
-        # Process the text content
-        # This is where you'd add your text analysis logic
-        flagged_items = [
-            {
-                "text": "coffee causes superhuman abilities",
-                "reason": "Exaggerated claim with no scientific basis",
-                "credibility": 20,
-            },
-            {
-                "text": "drinking 10 cups a day increases IQ by 50%",
-                "reason": "No peer-reviewed studies support this claim",
-                "credibility": 15,
-            }
-        ]
 
-        # Process the images
-        # Add image analysis logic here
-        
-        return {
-            "flagged_content": flagged_items,
-            "processed_images": len(content.images)
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
     
-@app.post("/api/analyze")
-async def analyze_image(file: UploadFile = File(...)):
-    try:
-        response = await analyze_image(file)
-        return response
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
-    
+
 @app.post("/api/scrape")
 async def scrape_content(content: ScrapedContent):
     # Create a formatted JSON response
