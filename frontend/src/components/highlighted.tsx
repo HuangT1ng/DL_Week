@@ -37,25 +37,25 @@ export default function Highlighted() {
       {
         "text": "Eric Trump and Donald Trump Jr. were reportedly panicking Thursday after getting their tongues stuck to a frozen column near the West Wing of the White House.",
         "reason": "This is satirical content with no factual basis. It originates from a satirical source and should not be interpreted as real news.",
-        "authenticity": "Satire / Fake News"
+        "authenticity": "Likely False"
       },
       {
-        "text": "We're going to die out here! We're going to thtarve to death!",
+        "text": "We're going to thtarve to death!",
         "reason": "This is an exaggerated and fabricated speech, likely intended for humor or satire rather than factual reporting.",
-        "authenticity": "Exaggerated / Misleading"
+        "authenticity": "Exaggerated"
       }
     ],
     "images": [
       {
         "source": "/images/trump-boys.jpg",
         "alt_text": "Trump Boys at White House",
-        "reason": "AI detected this as a digitally manipulated satirical image. It has been altered to fit a humorous or fictional narrative.",
-        "authenticity": "Digitally Manipulated / Satirical Image"
+        "reason": "This is a digitally manipulated satirical image. It has been altered to fit a humorous or fictional narrative.",
+        "authenticity": "Digitally Manipulated "
       },
       {
         "source": "/images/eric-adams.jpg",
         "alt_text": "Political Profile: Eric Adams",
-        "reason": "AI detected this as a mismatched image. The image displayed is kevin hart.",
+        "reason": "This is a mismatched image. The image displayed is kevin hart.",
         "authenticity": "Mismatched Image"
       }
     ]

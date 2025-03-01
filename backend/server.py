@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
+from backend.nlp import process_text
+from backend.image_detection import analyze_image
 import json
 
 app = FastAPI()
@@ -80,7 +82,15 @@ async def analyze_content(content: ArticleContent):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
+    
+@app.post("/api/analyze")
+async def analyze_image(file: UploadFile = File(...)):
+    try:
+        response = await analyze_image(file)
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+    
 @app.post("/api/scrape")
 async def scrape_content(content: ScrapedContent):
     # Create a formatted JSON response
@@ -99,21 +109,21 @@ async def scrape_content(content: ScrapedContent):
     print(json.dumps(formatted_content, indent=2))
     print("=====================\n")
     
-    # NEW: Return processed content instead of just a success message
-    # This simulates a text processing pipeline without changing your existing code structure
+    # Get processed text from the text_processing module
+    processed_text_dicts = process_text(formatted_content["text_content"])
+    
+    # Convert dictionaries to TextContent objects
+    processed_text_objects = [
+        TextContent(
+            text=item["text"],
+            reason=item["reason"],
+            authenticity=item["authenticity"]
+        ) for item in processed_text_dicts
+    ]
+    
+    # Create the processed content response with the dynamic text content
     processed_content = ProcessedContent(
-        text_content=[
-            TextContent(
-                text="Eric Trump and Donald Trump Jr. were reportedly panicking Thursday after getting their tongues stuck to a frozen column near the West Wing of the White House.",
-                reason="This is satirical content with no factual basis. It originates from a satirical source and should not be interpreted as real news.",
-                authenticity="Satire / Fake News"
-            ),
-            TextContent(
-                text="We're going to die out here! We're going to thtarve to death!",
-                reason="This is an exaggerated and fabricated speech, likely intended for humor or satire rather than factual reporting.",
-                authenticity="Exaggerated / Misleading"
-            )
-        ],
+        text_content=processed_text_objects,
         images=[
             ImageContent(
                 source="/images/trump-boys.jpg",

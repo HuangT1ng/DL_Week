@@ -1,0 +1,29 @@
+import torch
+import torchvision.models as models
+import torch.nn as nn
+import os
+
+def get_and_save_pretrained_model(model_path="ai_image_detector_model.pth"):
+    """
+    Loads a pre-trained ResNet18 model, modifies it, and saves its weights to a file.
+
+    Args:
+        model_path (str): The path to save the model weights.
+    """
+    # Load a pre-trained model
+    model = models.resnet18(pretrained=True)
+
+    # Replace the last fully connected layer
+    num_ftrs = model.fc.in_features
+    model.fc = nn.Linear(num_ftrs, 2)  # 2 classes: Real, AI-generated
+
+    # Check if the model path is an empty string.
+    # if it is not, a directory should be made.
+    if os.path.dirname(model_path) != "":
+      os.makedirs(os.path.dirname(model_path), exist_ok=True)
+
+    torch.save(model.state_dict(), model_path)
+    print(f"Model saved to {model_path}")
+
+if __name__ == "__main__":
+    get_and_save_pretrained_model()
