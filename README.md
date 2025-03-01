@@ -1,6 +1,10 @@
 # Misinformation Detection Demo
 
-A web plugin that detects and highlights potential misinformation and ai generated images in websites
+A web plugin that utilizes multimodal LLM with RAG using vector database for search optimization
+that detects and highlights potential misinformation and ai generated images in websites
+
+## Quick Link to our slide deck for more info
+https://drive.google.com/drive/folders/1H1IcqwwBJ7O5mC4o4JkMNXXiuTL-qfII?usp=drive_link
 
 ## Quick Start
 
